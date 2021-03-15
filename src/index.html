@@ -5,10 +5,15 @@
         </title>
     </head>
     <body>
+        <div id="trades">
+
+        </div>
         hello
         <script>
                 // Create WebSocket connection.
                 const socket = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');
+
+                let trades = document.getElementById("trades");
 
                 // Connection opened
                 // socket.addEventListener('open', function (event) {
@@ -16,8 +21,11 @@
                 // }); 
 
                 socket.onmessage = function (event) {
-                    console.log(event.data);
+                    let data = JSON.parse(event.data);
+                    trades.append(data.p);
+                    // console.log(event.data);
                 }
+
         </script>
     </body>
 </html>
