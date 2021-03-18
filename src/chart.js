@@ -1,6 +1,4 @@
-import { createChart } from 'lightweight-charts';
-
-const chart = createChart(document.getElementById("chart"), { width: 400, height: 300 });
+const chart = LightweightCharts.createChart(document.getElementById('chart'), { width: 400, height: 300 });
 const lineSeries = chart.addLineSeries();
 lineSeries.setData([
     { time: '2019-04-11', value: 80.01 },
