@@ -7,3 +7,5 @@ yarn-error.log
 *.txt
 *.csv
 *.idea
+config.py
+*.pyc
