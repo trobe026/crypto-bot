@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>
+            Coinview
+        </title>
+        <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    </head>
+    <body>
+        <h1> {{title}}</h1>
+        <div id="exchange_info">
+            <h2>Exchange Information</h2>
+            {% for key in exchange %}
+            {% endfor %}
+        </div>
+        <div id="chart"></div>
+        <div id="trades">
+            <form action="/buy" method="POST">
+                <input type="text" id="quantity" name="quantity" placeholder="eg. 0.0001"/>
+                <select id="symbol">
+                    {% for symbol in symbols %}
+                    <option value="">
+                        {{ symbol.symbol }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" name="buy" value="buy" />
+            </form>
+            
+                
+        </div>
+        <div id="my_balances"><h2>My Balances</h2>
+            <table>
+                <tbody>
+                    {% for balance in my_balances %}
+                    <tr>
+                        <td>
+                            {{ balance.asset}}
+                        </td>
+                        <td>
+                            {{ balance.free}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+        <h3>Settings</h3>
+        
+        <div id="settings">
+            <input type="checkbox"/>RSI
+            <input type="text" id="rsi_length" name="rsi_length" placeholder="14" />
+            Overbought
+            <input type="text" id="rsi_overbought" name="rsi_overbought" placeholder="70" />
+            Oversold
+            <input type="text" id="rsi_oversold" name="rsi_oversold" placeholder="30" />
+        </div>
+        
+        <script>
+                // Create WebSocket connection.
+                //const socket = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');
+
+                let trades = document.getElementById("chart");
+
+                // socket.onmessage = function (event) {
+                //     let data = JSON.parse(event.data);
+                //     trades.append(data.p);
+                // }
+
+        </script>
+        <script src="{{ url_for('static', filename='chart.js') }}"></script>
+    </body>
+</html>
