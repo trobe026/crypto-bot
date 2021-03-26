@@ -1,0 +1,12 @@
+node_modules
+*.DS_STORE
+.nyc_output
+.vscode
+yarn-error.log
+**/package-lock.json
+*.txt
+*.csv
+*.idea
+config.py
+*.pyc
+\venv
