@@ -30,6 +30,7 @@ def buy():
             quantity=request.form['quantity']
             )
     except Exception as e:
+        # e.message no longer exists, simply convert entire message to string (figure how to get value by key eventually)
         flash(str(e), "error")
 
     return redirect('/')
@@ -41,3 +42,22 @@ def sell():
 @app.route('/settings')
 def settings():
     return 'settings'
+
+@app.route('/history')
+def history():
+    candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_5MINUTE, "1 Mar, 2021", "28 Mar, 2021")
+    processed_candlesticks = []
+
+    for data in candlesticks:
+
+        candlestick = {
+            "time": data[0] / 1000,
+            "open": data[1],
+            "high": data[2],
+            "low": data[3],
+            "close": data[4]
+        }
+
+        processed_candlesticks.append(candlestick)
+    
+    return jsonify(processed_candlesticks)
