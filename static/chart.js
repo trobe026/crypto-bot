@@ -1,4 +1,4 @@
-const chart = LightweightCharts.createChart(document.getElementById('chart'), { width: 400, height: 300 });
+const chart = LightweightCharts.createChart(document.getElementById('chart'), { width: 1000, height: 500 });
 
 const candleSeries = chart.addCandlestickSeries({
     upColor: '#00FF00',
@@ -9,8 +9,20 @@ const candleSeries = chart.addCandlestickSeries({
     wickUpColor: '#90ee90'
 });
 
+
 fetch('http://localhost:5000/history')
     .then((r) => r.json())
-    .then((response) => {
-        console.log(response)
+    .then((response, error) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log(response);
+        console.log('test')
+        candleSeries.setData(response);
     });
+
+
+// var binanceSocket = new WebSocket("wss://stream.binance.com:9443:ws/btcusdt@kline_15m");
+// binanceSocket.onmessage = function(event) {
+//     console.log(event.data)
+// }
