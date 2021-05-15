@@ -24,7 +24,7 @@
 
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                <div style="padding: 10px; margin-bottom: 10px; background-color: pink; border: solid red 1px; color: red;">
+                <div style="padding: 5px; margin-bottom: 5px; background-color: pink; border: solid red 1px; color: red;">
                     <ul class=flashes>
                     {% for message in messages %}
                         <li>{{ message }}</li>
@@ -50,11 +50,14 @@
         
 
         <div id="my_balances">
-
             <h2>My Balances</h2>
-
             <table>
                 <tbody>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Free</th>
+                        <th>In Order (Locked)</th>
+                    </tr>
                     {% for balance in my_balances %}
                     <tr>
                         <td>
@@ -62,6 +65,9 @@
                         </td>
                         <td>
                             {{ balance.free}}
+                        </td>
+                        <td>
+                            {{ balance.locked}}
                         </td>
                     </tr>
                     {% endfor %}
