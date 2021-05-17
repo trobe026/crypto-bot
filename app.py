@@ -1,5 +1,6 @@
 import config, csv
-from flask import Flask, render_template, request, flash, redirect, jsonify
+from flask import Flask, render_template, request, flash, redirect, jsonify, session
+from flask_cors import CORS, cross_origin
 from binance.client import Client
 from binance.enums import *
 
@@ -47,7 +48,9 @@ def settings():
     return 'settings'
 
 @app.route('/history', methods=['GET'])
+@cross_origin()
 def history():
+    print("hit")
     candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_5MINUTE, "1 Mar, 2021", "28 Mar, 2021")
     processed_candlesticks = []
 
