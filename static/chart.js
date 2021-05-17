@@ -1,4 +1,8 @@
-const chart = LightweightCharts.createChart(document.getElementById('chart'), { width: 1000, height: 500 });
+
+// const fetch = require('node-fetch');
+
+// eslint-disable-next-line no-undef
+const chart = LightweightCharts.createChart(document.getElementById('chart'), { width: 750, height: 420 });
 
 const candleSeries = chart.addCandlestickSeries({
     upColor: '#00FF00',
@@ -9,15 +13,10 @@ const candleSeries = chart.addCandlestickSeries({
     wickUpColor: '#90ee90'
 });
 
-
+// eslint-disable-next-line no-undef
 fetch('http://localhost:5000/history')
     .then((r) => r.json())
-    .then((response, error) => {
-        if (error) {
-            console.log(error);
-        }
-        console.log(response);
-        console.log('test')
+    .then((response) => {
         candleSeries.setData(response);
     });
 
