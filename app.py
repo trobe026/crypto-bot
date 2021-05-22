@@ -51,7 +51,7 @@ def settings():
 @cross_origin()
 def history():
     print("hit")
-    candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_5MINUTE, "1 Mar, 2021", "28 Mar, 2021")
+    candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_15MINUTE, "1 May, 2021", "15 May, 2021")
     processed_candlesticks = []
 
     for data in candlesticks:
