@@ -1,5 +1,9 @@
 from logging import Logger
 import websocket, json, pprint, talib, numpy
+import config
+from binance.client import Client
+from binance.enums import *
+
 
 # websocket.enableTrace(True)
 
@@ -15,6 +19,9 @@ TRADE_SYMBOL = 'ADAUSDT'
 TRADE_QUANTITY = 10
 
 closes = []
+in_position = False
+
+client = Client(config.API_KEY, config.API_SECRET, tld='us')
 
 def on_open(ws):
     print("ran")
@@ -33,8 +40,6 @@ def on_message(ws, message):
     candle = json_message['k']
     is_candle_closed = candle['x']
     close = candle['c']
-
-    in_position = False
 
     if is_candle_closed:
         print("candle closed at {}".format(close))
