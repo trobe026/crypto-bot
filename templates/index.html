@@ -59,17 +59,19 @@
                         <th>In Order (Locked)</th>
                     </tr>
                     {% for balance in my_balances %}
-                    <tr>
-                        <td>
-                            {{ balance.asset}}
-                        </td>
-                        <td>
-                            {{ balance.free}}
-                        </td>
-                        <td>
-                            {{ balance.locked}}
-                        </td>
-                    </tr>
+                        {% if balance.free|float > 0 %}
+                        <tr>
+                            <td>
+                                {{ balance.asset}}
+                            </td>
+                            <td>
+                                {{ balance.free}}
+                            </td>
+                            <td>
+                                {{ balance.locked}}
+                            </td>
+                        </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
