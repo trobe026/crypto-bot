@@ -1,7 +1,9 @@
 from logging import Logger
 import websocket, json, pprint, talib, numpy
 
-websocket.enableTrace(True)
+# websocket.enableTrace(True)
+
+data = [1.5874, 1.5775, 1.5689, 1.5683, 1.5649, 1.5655, 1.5697, 1.5696, 1.5713, 1.5684, 1.5608, 1.5694, 1.5647, 1.5595, 1.5686, 1.5675, 1.5716, 1.573, 1.5745, 1.5734, 1.5681, 1.5731, 1.5706, 1.5677, 1.5657, 1.5639, 1.5701]
 
 SOCKET = "wss://stream.binance.com:9443/ws/adausdt@kline_1m"
 
@@ -32,7 +34,7 @@ def on_message(ws, message):
     is_candle_closed = candle['x']
     close = candle['c']
 
-    in_position = false
+    in_position = False
 
     if is_candle_closed:
         print("candle closed at {}".format(close))
@@ -52,6 +54,8 @@ def on_message(ws, message):
             if last_rsi > RSI_OVERBOUGHT:
                 if in_position:
                     print("Overbought and you own it, SELLL!!!")
+                    in_position = False
+                    # sell logic here
                 else:
                     print("Overbought but you dont own anything")
 
@@ -60,6 +64,8 @@ def on_message(ws, message):
                 if in_position:
                     print("It is oversold but you already own it, nothing to do")
                 else:
+                    # buy logic here
+                    in_position = True
                     print("BUYYYYY!!!!")
 
     # pprint.pprint(json_message)
