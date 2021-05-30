@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lightweight-charts": "^3.3.0"
+    "babel-eslint": "^10.1.0",
+    "lightweight-charts": "^3.3.0",
+    "node-fetch": "^2.6.1"
   }
 }

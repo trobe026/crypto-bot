@@ -8,17 +8,16 @@ client = Client(config.API_KEY, config.API_SECRET)
 
 # candles = client.get_klines(symbol='BTCUSDT', interval=Client.KLINE_INTERVAL_15MINUTE)
 
-# fetch 30 minute klines for the last month of 2017
-candles = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_5MINUTE, "1 Jan, 2017", "1 Jan, 2021")
-
-# csvfile = open('15_min.csv', 'w', newline='')
-csvfile = open('2017-2021.csv', 'w', newline='')
-
+csvfile = open('ada_2021_may_5min.csv', 'w', newline='')
 candlestick_writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-for candle in candles:
-    candlestick_writer.writerow(candle)
-    # print(candle)
+# fetch 1 day klines from beginning 2021 to current
+# candlesticks = client.get_historical_klines("ADAUSDT", Client.KLINE_INTERVAL_1DAY, "1 Jan, 2021", "22 May, 2021")
+candlesticks = client.get_historical_klines("ADAUSDT", Client.KLINE_INTERVAL_5MINUTE, "1 May, 2021")
+print(len(candlesticks))
 
+for candlestick in candlesticks:
+    candlestick[0] = candlestick[0] / 1000
+    candlestick_writer.writerow(candlestick)
 
-print(len(candles))
+csvfile.close();    
