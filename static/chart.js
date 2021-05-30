@@ -43,13 +43,12 @@ fetch('http://localhost:5000/history')
     });
 
 
-let binanceSocket = new WebSocket('wss://stream.binance.com:9443:ws/btcusdt@kline_15m');
+let binanceSocket = new WebSocket('wss://stream.binance.com:9443/ws/adausdt@kline_1m');
 binanceSocket.onmessage = function(event) {
+
     let message = JSON.parse(event.data);
 
     let candlestick = message.k;
-
-    console.log(candlestick);
 
     candleSeries.update({
         time: candlestick.t / 1000,
