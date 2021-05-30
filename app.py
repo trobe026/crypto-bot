@@ -12,7 +12,7 @@ client = Client(config.API_KEY, config.API_SECRET, tld='us')
 def index():
     info = client.get_account()
 
-    # print(info)
+    print(info)
 
     title = "CoinView"
     balances = info['balances']
@@ -47,11 +47,11 @@ def sell():
 def settings():
     return 'settings'
 
-@app.route('/history', methods=['GET'])
+@app.route('/history')
 @cross_origin()
 def history():
-    print("hit")
-    candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_15MINUTE, "1 May, 2021", "15 May, 2021")
+    candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_5MINUTE, "1 day ago UTC")
+    #candlesticks = client.get_historical_klines("ADAUSD", Client.KLINE_INTERVAL_15MINUTE, "1 May, 2021", "15 May, 2021")
     processed_candlesticks = []
 
     for data in candlesticks:
