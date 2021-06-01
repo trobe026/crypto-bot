@@ -23,6 +23,15 @@ in_position = False
 
 client = Client(config.API_KEY, config.API_SECRET, tld='us')
 
+def order(side, quantity, symbol, order_type=ORDER_TYPE_MARKET):
+    try:
+        print("sending order")
+        order = client.create_order(symbol=symbol, side=side, type=ORDER_TYPE_MARKET, quantity=quantity)
+        print(order)
+    except Exception as e:
+        return False
+    return True
+
 def on_open(ws):
     print("ran")
     print('opened connection')
@@ -34,7 +43,7 @@ def on_message(ws, message):
     print('received message')
 
     global closes
-
+    global in_position
     json_message = json.loads(message)
 
     candle = json_message['k']
@@ -59,19 +68,23 @@ def on_message(ws, message):
             if last_rsi > RSI_OVERBOUGHT:
                 if in_position:
                     print("Overbought and you own it, SELLL!!!")
-                    in_position = False
+                    sell_order_succeeded = order(SIDE_SELL, TRADE_QUANTITY, TRADE_SYMBOL)
+                    if sell_order_succeeded:
+                        in_position = False
                     # sell logic here
                 else:
                     print("Overbought but you dont own anything")
 
             if last_rsi < RSI_OVERSOLD:
-
                 if in_position:
                     print("It is oversold but you already own it, nothing to do")
                 else:
                     # buy logic here
-                    in_position = True
                     print("BUYYYYY!!!!")
+                    buy_order_succeeded = order(SIDE_BUY, TRADE_QUANTITY, TRADE_SYMBOL)
+                    if buy_order_succeeded:
+                        in_position = True
+                    
 
     # pprint.pprint(json_message)
 
