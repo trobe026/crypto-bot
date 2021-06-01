@@ -12,3 +12,6 @@ If you haven't already installed venv, you need to, then make a venv folder `pyt
 
 - run flask server `flask run`
 If you want debug mode run `FLASK_DEBUG=1 flask run`
+
+This project requires you have a Binance account with a valid API Key and Secret added to a
+`config.py` file.
